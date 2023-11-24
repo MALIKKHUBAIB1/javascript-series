@@ -1,2 +1,3 @@
 # javascript-series
-a javascript fresher course
+dsa question and some advanced topic
+
