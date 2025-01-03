@@ -16,7 +16,7 @@ class LinkedList {
     this.tail = newNode;
   }
   print() {
-    let current = this.node;
+    let current = this.head;
     let result = "";
     while (current !== null) {
       result += current.data + "->";
@@ -36,17 +36,70 @@ class LinkedList {
 
     prev.next = current.next;
   }
-  lengthOfNode(){
-     let current = this.head;
-     
+  lengthOfNode() {
+    let current = this.head;
+    let len = 0;
+    while (current !== null) {
+      len++;
+      current = current.next;
+    }
+    return len;
+  }
+  insertAtPostion(pos, data) {
+    const len = this.lengthOfNode();
+    if (len <= pos) {
+      console.log("can't insert at this position");
+      return;
+    }
+    // insert at the position if the head;
+    const newNode = {
+      data: data,
+      next: null,
+    };
+    let current = this.head;
+    if (pos === 0) {
+      newNode.next = this.head;
+      this.head = newNode;
+      return;
+    }
+
+    let prev = null;
+    while (pos !== 0 && current !== null) {
+      prev = current;
+      current = current.next;
+      pos--;
+    }
+    prev.next = newNode;
+    newNode.next = current;
+  }
+  reverseLinkedList() {
+    let prev = null;
+    let current = this.head;
+
+    this.tail = current;
+    while (current !== null) {
+      let next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    }
+    this.head = prev;
   }
 }
 
-const node = new LinkedList(50);
-node.addNode(10);
+const node = new LinkedList(10);
 node.addNode(20);
 node.addNode(30);
-console.log(node);
+node.addNode(40);
+node.addNode(50);
+node.addNode(60);
+node.addNode(70);
+
+// console.log(node);
 
 // node.deleteNode(20);
+node.insertAtPostion(0, 5);
+node.reverseLinkedList();
 node.print();
+const len = node.lengthOfNode();
+// console.log(node.tail.next);
